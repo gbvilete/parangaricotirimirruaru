@@ -1,0 +1,17 @@
+# Nome do workflow
+name: First Workflow
+
+# Quando o workflow será executado
+on: workflow_dispatch # faz com que o usuário possa iniciar a execução manualmente
+
+# Define os jobs que existem nesse workflow
+jobs:
+  first-job: # nome arbitrário que você quer dar para o job
+    # define o runner
+    runs-on: ubuntu-latest
+    # define os steps desse job
+    steps:
+      - name: Print greeting # nome arbitrário do step
+        run: echo "Hello World!"
+      - name: Print goodbye
+        run: echo "Done - bye!"
