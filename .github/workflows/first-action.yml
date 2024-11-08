@@ -1,17 +1,21 @@
 # Nome do workflow
-name: First Workflow
+name: Test Project
 
 # Quando o workflow será executado
-on: workflow_dispatch # faz com que o usuário possa iniciar a execução manualmente
+on: push
 
 # Define os jobs que existem nesse workflow
 jobs:
-  first-job: # nome arbitrário que você quer dar para o job
-    # define o runner
+  test:
     runs-on: ubuntu-latest
-    # define os steps desse job
     steps:
-      - name: Print greeting # nome arbitrário do step
-        run: echo "Hello World!"
-      - name: Print goodbye
-        run: echo "Done - bye!"
+      - name: Get code
+        uses: actions/checkout@v4 # palavra chave para evocar uma action
+      - name: Install NodeJS
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install dependencies
+        run: npm ci
+      - name: Run tests
+        run: npm test
