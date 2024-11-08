@@ -1,0 +1,38 @@
+# Nome do workflow
+name: Challenge
+
+# Quando o workflow será executado
+on: push
+
+# Define os jobs que existem nesse workflow
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v4 # palavra chave para evocar uma action
+      - name: Lint
+        uses: super-linter/super-linter@v7.1.0
+        env:
+          FIX_JAVASCRIPT_ES: true
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v4 # palavra chave para evocar uma action
+      - name: Install dependencies
+        run: npm ci
+      - name: Run tests
+        run: npm test
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v4 # palavra chave para evocar uma action
+      - name: Install dependencies
+        run: npm ci
+      - name: Build project
+        run: npm run build
+      - name: Deploy
+        run: echo "Deploying..."
