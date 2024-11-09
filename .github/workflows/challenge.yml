@@ -15,6 +15,7 @@ jobs:
         uses: super-linter/super-linter@v7.1.0
         env:
           FIX_JAVASCRIPT_ES: true
+          GITHUB_TOKEN: ${{ secrets.MEU_TOKEN }}
   test:
     runs-on: ubuntu-latest
     steps:
